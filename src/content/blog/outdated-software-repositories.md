@@ -9,7 +9,7 @@ heroImage: '/assets/blogs/outdated-software-repositories/header.jpg'
 
 # Intro
 Do you ever wonder just *how* outdated your favorite rolling release distro's repositories are?  
-Because that question came to my mind some time ago, after seeing too many "new version availiable" popups while playing [xonotic](https://xonotic.org).
+Because that question came to my mind some time ago, after seeing too many "new version availiable" popups while playing [Xonotic](https://xonotic.org).
 
 # Measuring it
 Now, how do you measure how up-to-date a repository is automatically? Because with Nixpkgs having more than 80k packages, and Gentoo having over 18k, checking how up-to-date they are manually will be no easy task.
