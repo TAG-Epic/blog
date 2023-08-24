@@ -1,6 +1,6 @@
 ---
 title: "How outdated are software repositories?"
-description: "The results for my data-collection script for checking Python packages on various"
+description: "Do you ever wonder just how outdated your favorite rolling release distro’s repositories are?"
 pubDate: "Aug 24 2023"
 heroImage: '/assets/blogs/outdated-software-repositories/header.jpg'
 ---
