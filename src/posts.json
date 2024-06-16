@@ -9,6 +9,7 @@
     },
     "outdated-software-repositories": {
         "title": "How outdated are software repositories?",
+        "description": "",
         "slug": "outdated-software-repositories",
         "pub-date": "24 Aug 2023",
         "hero": "hero.jpg"
