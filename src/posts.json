@@ -1,0 +1,16 @@
+{
+    "vail-cheaterboard": {
+        "title": "The VAIL Cheaterboard",
+        "description": "Using 67 million rows of stats to make fun of cheaters",
+        "slug": "vail-cheaterboard",
+        "pub-date": "16 Jun 2024",
+        "hero": "hardpoint-exploit-example.jpg",
+        "hero-credit": "Photo by RICHDGEB. He did not wish to share his score."
+    },
+    "outdated-software-repositories": {
+        "title": "How outdated are software repositories?",
+        "slug": "outdated-software-repositories",
+        "pub-date": "24 Aug 2023",
+        "hero": "hero.jpg"
+    }
+}
