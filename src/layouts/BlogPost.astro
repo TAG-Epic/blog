@@ -8,7 +8,7 @@ const { data } = Astro.props;
 
 <html lang="en">
 	<head>
-		<BaseHead title={data.title} description={data.description} />
+		<BaseHead title={data.title} description={data.description} image={`/assets/blogs/${data.slug}/${data.hero}`} />
 		<style>
 			main {
 				width: calc(100% - 2em);
