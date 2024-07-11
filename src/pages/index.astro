@@ -85,7 +85,7 @@ import BLOG_POSTS from "../posts.json";
 			<section>
 				<ul>
 					{
-						Object.values(BLOG_POSTS).map((post) => (
+						Object.values(BLOG_POSTS).filter(post => post.released).map((post) => (
 							<li>
 								<a href={`/posts/${post.slug}/`}>
 									<img width={720} height={360} src={`assets/blogs/${post.slug}/${post.hero}`} alt="" />

@@ -1,17 +1,27 @@
 {
+    "network-conditions-visualized": {
+        "title": "Network conditions visualized",
+        "description": "How different network conditions affect your gameplay",
+        "slug": "network-conditions-visualized",
+        "pub-date": "",
+        "hero": "hero.jpg",
+        "released": false
+    },
     "vail-cheaterboard": {
         "title": "The VAIL Cheaterboard",
         "description": "Using 67 million rows of stats to make fun of cheaters",
         "slug": "vail-cheaterboard",
         "pub-date": "16 Jun 2024",
         "hero": "hardpoint-exploit-example.jpg",
-        "hero-credit": "Photo by RICHDGEB. He did not wish to share his score."
+        "hero-credit": "Photo by RICHDGEB. He did not wish to share his score.",
+        "released": true
     },
     "outdated-software-repositories": {
         "title": "How outdated are software repositories?",
         "description": "",
         "slug": "outdated-software-repositories",
         "pub-date": "24 Aug 2023",
-        "hero": "hero.jpg"
+        "hero": "hero.jpg",
+        "released": true
     }
 }

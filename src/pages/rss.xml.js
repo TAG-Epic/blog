@@ -4,7 +4,7 @@ import BLOG_POSTS from "../posts.json";
 
 export async function get(context) {
     const items = 
-		Object.values(BLOG_POSTS).map((post) => ({
+		Object.values(BLOG_POSTS).filter(post => post.released).map((post) => ({
             title: post.title,
             description: post.description,
 			link: `/posts/${post.slug}/`,
