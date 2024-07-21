@@ -4,5 +4,6 @@
     "slug": "outdated-software-repositories",
     "pubDate": "24 Aug 2023",
     "hero": "hero.jpg",
+    "tags": ["linux", "packaging"],
     "released": true
 }

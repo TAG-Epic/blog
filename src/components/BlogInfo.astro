@@ -1,0 +1,35 @@
+---
+const { post } = Astro.props;
+---
+<style>
+    .title {
+        margin: 0;
+        color: rgb(var(--black));
+        line-height: 1;
+        text-decoration: none;
+    }
+    .title:hover {
+        text-decoration: underline;
+        color: rgb(var(--accent));
+    }
+    .date {
+        margin: 0;
+        color: rgb(var(--gray));
+    }
+</style>
+<div class="post">
+    <a href={`/posts/${post.slug}/`}>
+        <img width={720} height={360} src={`/assets/blogs/${post.slug}/${post.hero}`} alt="" />
+        <h4 class="title">{post.title}</h4>
+        <p class="date">
+            {post["pub-date"]}
+        </p>
+        <div class="tags">
+            {post.tags.map((tag => (
+                <a class="tag" href={`/tags/${tag}`}>
+                    <span>#{tag}</span>
+                </a>
+            )))}
+        </div>
+    </a>
+</div>

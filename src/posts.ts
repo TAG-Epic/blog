@@ -9,6 +9,7 @@ export type PostMetadata = {
     pubDate: string;
     hero: string;
     heroCredit?: string;
+    tags: string[];
     released: boolean;
 };
 const POSTS: PostMetadata[] = [
@@ -22,5 +23,8 @@ export function getAllPosts(): PostMetadata[] {
 }
 export function getReleasedPosts(): PostMetadata[] {
     return POSTS.filter(post => post.released);
+}
+export function getTags(): string[] {
+    return POSTS.flatMap(post => post.tags).filter((tag, index, self) => index === self.indexOf(tag));
 }
 
