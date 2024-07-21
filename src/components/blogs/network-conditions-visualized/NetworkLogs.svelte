@@ -58,5 +58,6 @@
     .logs-container {
         border: 1px solid #121212;
         padding: .2rem;
+        height: 26ch;
     }
 </style>

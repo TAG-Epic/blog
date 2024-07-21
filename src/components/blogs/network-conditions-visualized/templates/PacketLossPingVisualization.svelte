@@ -50,11 +50,13 @@
         }
     });
 
+    let tickRate = 10;
+    let pingMs = 100;
+    let packetLossPercent = 5;
 
-    let tickRate = 2;
 
     let config: NetworkerOptions = {
-        tickRate,
+        tickRate: tickRate,
         components: {
             server: {},
             players: playersConfig
@@ -81,12 +83,27 @@
         config.tickRate = newTickRate;
         networker.changeOptions(config);
     }
+    function changePing(newPingMs: number) {
+        config.components.players.get("user-2")!.networking.outbound.ping = newPingMs;
+    }
+    function changePacketLoss(newPacketLossPercent: number) {
+        config.components.players.get("user-2")!.networking.outbound.packetloss = newPacketLossPercent / 100;
+    }
 
     $: changeTickRate(tickRate);
+    $: changePing(pingMs);
+    $: changePacketLoss(packetLossPercent);
 </script>
 
 <label for="tick-rate-input">Tick rate: {tickRate}</label>
 <br/>
 <input id="tick-rate-input" type="range" min={1} max={100} bind:value={tickRate}>
 <br/>
+<label for="ping-input">Ping: {pingMs}ms</label>
+<br/>
+<input id="ping-input" type="range" min={0} max={1000} bind:value={pingMs}>
+<br/>
+<label for="packetloss-input">Packetloss: {packetLossPercent}%</label>
+<br/>
+<input id="packetloss-input" type="range" min={0} max={100} bind:value={packetLossPercent}>
 <PerspectiveVisualizer player1={player1} player2={networkedPlayer} />

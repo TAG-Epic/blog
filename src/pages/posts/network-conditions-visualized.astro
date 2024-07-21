@@ -5,6 +5,8 @@ import BLOG_POSTS from "../../posts.json";
 import Visualizer from "../../components/blogs/network-conditions-visualized/Visualizer.svelte";
 import SendNetworkLogsVisualizer from "../../components/blogs/network-conditions-visualized/templates/SendNetworkLogsVisualizer.svelte";
 import NoSmoothingStutteringComparison from "../../components/blogs/network-conditions-visualized/templates/NoSmoothingStutteringComparison.svelte";
+import PacketLossPingVisualization from "../../components/blogs/network-conditions-visualized/templates/PacketLossPingVisualization.svelte";
+import PlayerMarker from "../../components/blogs/network-conditions-visualized/PlayerMarker.svelte";
 ---
 <BlogPost data={BLOG_POSTS["network-conditions-visualized"]}>
     <p>
@@ -19,11 +21,19 @@ import NoSmoothingStutteringComparison from "../../components/blogs/network-cond
     </p>
     <SendNetworkLogsVisualizer client:visible />
     <p>
-        This works fine, however the movement will be very choppy, which isn't ideal.
+        The <PlayerMarker color="red" /> local player is smooth as we know what the position is every frame.
+        This is different for the <PlayerMarker color="blue" /> remote player, which will only be updated once per tick.
     </p>
     <NoSmoothingStutteringComparison client:visible /> 
+    <p>
+        Vail runs at 60<a href="#footnote-vails-tickrate">³</a> ticks per second, which does look fine enough in the ideal conditions we have right now.
+        But unfortunately data doesn't magically instantly transport to anywhere in the world, so we have things like ping and packetloss.
+    </p>
+    <PacketLossPingVisualization client:visible />
+    <h2>Footnotes</h2>
     <ol class="footnotes">
         <li id="footnote-pls-fix-netcode"><a href="https://discord.com/channels/710682414225162301/1223413597435072653">cough cough</a></li>
         <li id="footnote-what-is-tickrate">Tick rate is how many times a spesific action should be ran. Minecraft for example does all its game logic 20 times per second.</li>
+        <li id="footnote-vails-tickrate"><a href="https://discord.com/channels/710682414225162301/1223413597435072653/1223982256431824986">Vail's tickrate confirmed by aoud</a></li>
     </ol>
 </BlogPost>
