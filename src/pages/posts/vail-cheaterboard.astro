@@ -1,10 +1,10 @@
 ---
 import BlogPost from '../../layouts/BlogPost.astro';
-import BLOG_POSTS from "../../posts.json";
 import Cheaterboard from "../../components/blogs/vail-cheaterboard/Cheaterboard.svelte";
+import POST_METADATA from "./vail-cheaterboard.json";
 ---
 
-<BlogPost data={BLOG_POSTS["vail-cheaterboard"]}>
+<BlogPost data={POST_METADATA}>
     <p>
         As you might know there was a exploit in vail for a *long* time that allowed you to freeze a hardpoint lobby forever. This exploit was abused by tons of people to grind stats.<br/>
         A while back I started tracking everyone's stats as I was receiving reports from friends catching GigaKnight abusing the hardpoint exploit to get to #1 on the kill leaderboards.<br/><br/>

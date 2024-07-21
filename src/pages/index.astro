@@ -2,7 +2,7 @@
 import BaseHead from '..//components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import BLOG_POSTS from "../posts.json";
+import { getReleasedPosts } from "../posts";
 ---
 
 <!DOCTYPE html>
@@ -85,7 +85,7 @@ import BLOG_POSTS from "../posts.json";
 			<section>
 				<ul>
 					{
-						Object.values(BLOG_POSTS).filter(post => post.released).map((post) => (
+						getReleasedPosts().map((post) => (
 							<li>
 								<a href={`/posts/${post.slug}/`}>
 									<img width={720} height={360} src={`assets/blogs/${post.slug}/${post.hero}`} alt="" />

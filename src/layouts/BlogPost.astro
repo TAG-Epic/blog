@@ -67,7 +67,7 @@ const { data } = Astro.props;
 			<article>
 				<div class="hero-image">
 					{data.hero && <img width={1020} height={510} src={`/assets/blogs/${data.slug}/${data.hero}`} alt="" />}
-                    {data["hero-credit"] && <cite>{data["hero-credit"]}</cite>}
+                    {data.heroCredit && <cite>{data.heroCredit}</cite>}
 				</div>
 				<div class="prose">
 					<div class="title">

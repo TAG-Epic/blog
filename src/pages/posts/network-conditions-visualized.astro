@@ -1,6 +1,6 @@
 ---
 import BlogPost from '../../layouts/BlogPost.astro';
-import BLOG_POSTS from "../../posts.json";
+import POST_METADATA from "./network-conditions-visualized.json";
 
 import Visualizer from "../../components/blogs/network-conditions-visualized/Visualizer.svelte";
 import SendNetworkLogsVisualizer from "../../components/blogs/network-conditions-visualized/templates/SendNetworkLogsVisualizer.svelte";
@@ -8,7 +8,7 @@ import NoSmoothingStutteringComparison from "../../components/blogs/network-cond
 import PacketLossPingVisualization from "../../components/blogs/network-conditions-visualized/templates/PacketLossPingVisualization.svelte";
 import PlayerMarker from "../../components/blogs/network-conditions-visualized/PlayerMarker.svelte";
 ---
-<BlogPost data={BLOG_POSTS["network-conditions-visualized"]}>
+<BlogPost data={POST_METADATA}>
     <p>
         In the <a href="https://discord.gg/vailvr">VAIL VR discord</a> I often see people complain about network conditions and just blame it on ping to the point where people are blaming frame drops on ping.
         This annoys me <i>slightly</i> so I've decided to bite the bullet and write some frontend code to visualize what the different network conditions <i>actually</i> does to your gameplay.
