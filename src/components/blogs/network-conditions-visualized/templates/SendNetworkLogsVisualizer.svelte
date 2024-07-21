@@ -1,32 +1,17 @@
 <script lang="ts">
-    import { WaypointPlayer } from "../networker/players/waypoint";
+    import { BotPlayer } from "../networker/players/bot";
     import { Networker } from "../networker";
     import type { NetworkerOptions, NetworkerPlayer } from "../networker";
     import NetworkLogs from "../NetworkLogs.svelte";
     import { NetworkerEventType } from "../networker/events";
     import { writable } from "svelte/store";
+    import { PATH } from "../paths/basic-square";
     
     let playersConfig = new Map<string, NetworkerPlayer>();
-    let player1 = new WaypointPlayer({
+    let player1 = new BotPlayer({
         movementSpeed: 1,
-        waypoints: [
-            {
-                x: 10,
-                y: 10
-            },
-            {
-                x: 50,
-                y: 10
-            },
-            {
-                x: 50,
-                y: 50
-            },
-            {
-                x: 10,
-                y: 50
-            }
-        ]
+        tickSpeed: 1,
+        actions: PATH
     });
     playersConfig.set("user-1", {
         positionRequestCallback: () => {

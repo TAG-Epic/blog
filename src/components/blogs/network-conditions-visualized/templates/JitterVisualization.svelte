@@ -4,8 +4,13 @@
     import { Networker } from "../networker";
     import type { NetworkerOptions, NetworkerPlayer } from "../networker";
     import PerspectiveVisualizer from "../PerspectiveVisualizer.svelte";
-    import { writable } from "svelte/store";
     import { PATH } from "../paths/basic-square";
+    import { writable } from "svelte/store";
+
+    let tickRate = writable<number>(10);
+    let pingMs = writable<number>(100);
+    let packetLossPercent = writable<number>(5);
+    let jitterMs = writable<number>(20);
     
     let playersConfig = new Map<string, NetworkerPlayer>();
     let player1 = new BotPlayer({
@@ -16,7 +21,7 @@
     let player2 = new BotPlayer({
         movementSpeed: 1,
         tickSpeed: 1,
-        actions: PATH,
+        actions: PATH 
     });
     playersConfig.set("user-1", {
         positionRequestCallback: () => {
@@ -46,15 +51,14 @@
                 jitter: 0
             },
             outbound: {
-                packetloss: 0,
-                ping: 0,
-                jitter: 0
+                packetloss: $packetLossPercent / 100,
+                ping: $pingMs,
+                jitter: $jitterMs
             }
         }
     });
 
 
-    let tickRate = writable<number>(2);
 
     let config: NetworkerOptions = {
         tickRate: $tickRate,
@@ -80,12 +84,25 @@
         }
     });
 
-    function changeTickRate(newTickRate: number) {
+    function changeTickRate(newTickRate: number): void {
         config.tickRate = newTickRate;
         networker.changeOptions(config);
     }
-    tickRate.subscribe(changeTickRate);
+    function changePing(newPingMs: number): void {
+        config.components.players.get("user-2")!.networking.outbound.ping = newPingMs;
+    }
+    function changePacketLoss(newPacketLossPercent: number): void {
+        config.components.players.get("user-2")!.networking.outbound.packetloss = newPacketLossPercent / 100;
+    }
+    function changeJitter(newJitterMs: number): void {
+        config.components.players.get("user-2")!.networking.outbound.jitter = newJitterMs;
+    }
     
+    tickRate.subscribe(changeTickRate);
+    pingMs.subscribe(changePing);
+    packetLossPercent.subscribe(changePacketLoss);
+    jitterMs.subscribe(changeJitter);
+
     // Analytics
     let hasFiddled = false;
     
@@ -94,16 +111,30 @@
             hasFiddled = true;
             window.plausible("network conditions visualized: fiddle", {
                 props: {
-                    visualization: "movement-no-smoothing"
+                    visualization: "packet-loss-ping"
                 }
             });
         }
     }
     tickRate.subscribe(onFiddle);
+    pingMs.subscribe(onFiddle);
+    packetLossPercent.subscribe(onFiddle);
+    jitterMs.subscribe(onFiddle);
 </script>
 
 <label for="tick-rate-input">Tick rate: {$tickRate}</label>
 <br/>
 <input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
 <br/>
+<label for="ping-input">Ping: {$pingMs}ms</label>
+<br/>
+<input id="ping-input" type="range" min={0} max={1000} bind:value={$pingMs}>
+<br/>
+<label for="packetloss-input">Packetloss: {$packetLossPercent}%</label>
+<br/>
+<input id="packetloss-input" type="range" min={0} max={100} bind:value={$packetLossPercent}>
+<br/>
+<label for="jitter-input">Jitter: {$jitterMs}ms</label>
+<br/>
+<input id="jitter-input" type="range" min={0} max={500} bind:value={$jitterMs}>
 <PerspectiveVisualizer player1={player1} player2={networkedPlayer} />

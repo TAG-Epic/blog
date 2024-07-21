@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { WaypointPlayer } from "../networker/players/waypoint";
+    import { BotPlayer } from "../networker/players/bot";
     import { NetworkedPlayer, SmoothingType } from "../networker/players/networked";
     import { Networker } from "../networker";
     import type { NetworkerOptions, NetworkerPlayer } from "../networker";
     import PerspectiveVisualizer from "../PerspectiveVisualizer.svelte";
-    import BASIC_WAYPOINT_PATH from "./basic-waypoint-path.json";
+    import { PATH } from "../paths/basic-square";
     import { writable } from "svelte/store";
 
     let tickRate = writable<number>(10);
@@ -12,13 +12,15 @@
     let packetLossPercent = writable<number>(5);
     
     let playersConfig = new Map<string, NetworkerPlayer>();
-    let player1 = new WaypointPlayer({
+    let player1 = new BotPlayer({
         movementSpeed: 1,
-        waypoints: BASIC_WAYPOINT_PATH
+        tickSpeed: 1,
+        actions: PATH
     });
-    let player2 = new WaypointPlayer({
+    let player2 = new BotPlayer({
         movementSpeed: 1,
-        waypoints: BASIC_WAYPOINT_PATH
+        tickSpeed: 1,
+        actions: PATH
     });
     playersConfig.set("user-1", {
         positionRequestCallback: () => {

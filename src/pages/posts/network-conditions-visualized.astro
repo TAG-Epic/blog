@@ -6,6 +6,7 @@ import Visualizer from "../../components/blogs/network-conditions-visualized/Vis
 import SendNetworkLogsVisualizer from "../../components/blogs/network-conditions-visualized/templates/SendNetworkLogsVisualizer.svelte";
 import NoSmoothingStutteringComparison from "../../components/blogs/network-conditions-visualized/templates/NoSmoothingStutteringComparison.svelte";
 import PacketLossPingVisualization from "../../components/blogs/network-conditions-visualized/templates/PacketLossPingVisualization.svelte";
+import JitterVisualization from "../../components/blogs/network-conditions-visualized/templates/JitterVisualization.svelte";
 import PlayerMarker from "../../components/blogs/network-conditions-visualized/PlayerMarker.svelte";
 ---
 <BlogPost data={POST_METADATA}>
@@ -30,6 +31,21 @@ import PlayerMarker from "../../components/blogs/network-conditions-visualized/P
         But unfortunately data doesn't magically instantly transport to anywhere in the world, so we have things like ping and packetloss.
     </p>
     <PacketLossPingVisualization client:visible client:only />
+    <p>
+        Now remember that ping here just isn't your ping, but its also the ping from you -&gt; the gameserver -&gt; other player, so for a normal "low ping" game the ping would be around 50ms per player, so you would have 100ms ping total.
+        But sadly, most games are very high ping, usually with 120ms ping per player, making it 240ms.
+        
+        Anyways ping isn't just a "static" time, there is also jitter which is a part of your ping which is random.
+        My super simplified version of jitter just does
+        <code language="python">
+            ping = static_ping + (jitter * random.random())
+        </code>
+        which isn't perfect, but it should be accurate enough for these visualizations.
+    </p>
+    <JitterVisualization client:visible client:only />
+    <p>
+        It's quite hard to get some good reference numbers for jitter as this is something that doesn't show in game in VAIL, however I would guess a normal game for me would be around 30ms jitter. Remember that jitter is both from you -&gt; server and server -&gt; other players.
+    </p>
     <h2>Footnotes</h2>
     <ol class="footnotes">
         <li id="footnote-pls-fix-netcode"><a href="https://discord.com/channels/710682414225162301/1223413597435072653">cough cough</a></li>
