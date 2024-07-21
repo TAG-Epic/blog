@@ -4,6 +4,7 @@
     import type { NetworkerOptions, NetworkerPlayer } from "../networker";
     import NetworkLogs from "../NetworkLogs.svelte";
     import { NetworkerEventType } from "../networker/events";
+    import { writable } from "svelte/store";
     
     let playersConfig = new Map<string, NetworkerPlayer>();
     let player1 = new WaypointPlayer({
@@ -61,12 +62,27 @@
         networker.changeOptions(config);
     }
 
-    let tickRate = 2;
-    $: changeTickRate(tickRate);
+    let tickRate = writable<number>(2);
+    tickRate.subscribe(changeTickRate);
+    
+    // Analytics
+    let hasFiddled = false;
+    
+    function onFiddle(): void {
+        if (!hasFiddled) {
+            hasFiddled = true;
+            window.plausible("network conditions visualized: fiddle", {
+                props: {
+                    visualization: "network-logs"
+                }
+            });
+        }
+    }
+    tickRate.subscribe(onFiddle);
 </script>
 
-<label for="tick-rate-input">Tick rate: {tickRate}</label>
+<label for="tick-rate-input">Tick rate: {$tickRate}</label>
 <br/>
-<input id="tick-rate-input" type="range" min={1} max={100} bind:value={tickRate}>
+<input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
 <br/>
 <NetworkLogs networker={networker} showEvents={[NetworkerEventType.PLAYER_SENT_PACKET]}/>

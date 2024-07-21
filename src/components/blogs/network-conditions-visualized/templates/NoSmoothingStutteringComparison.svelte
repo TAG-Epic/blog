@@ -5,6 +5,7 @@
     import type { NetworkerOptions, NetworkerPlayer } from "../networker";
     import PerspectiveVisualizer from "../PerspectiveVisualizer.svelte";
     import BASIC_WAYPOINT_PATH from "./basic-waypoint-path.json";
+    import { writable } from "svelte/store";
     
     let playersConfig = new Map<string, NetworkerPlayer>();
     let player1 = new WaypointPlayer({
@@ -51,10 +52,10 @@
     });
 
 
-    let tickRate = 2;
+    let tickRate = writable<number>(2);
 
     let config: NetworkerOptions = {
-        tickRate,
+        tickRate: $tickRate,
         components: {
             server: {},
             players: playersConfig
@@ -81,12 +82,26 @@
         config.tickRate = newTickRate;
         networker.changeOptions(config);
     }
-
-    $: changeTickRate(tickRate);
+    tickRate.subscribe(changeTickRate);
+    
+    // Analytics
+    let hasFiddled = false;
+    
+    function onFiddle(): void {
+        if (!hasFiddled) {
+            hasFiddled = true;
+            window.plausible("network conditions visualized: fiddle", {
+                props: {
+                    visualization: "movement-no-smoothing"
+                }
+            });
+        }
+    }
+    tickRate.subscribe(onFiddle);
 </script>
 
-<label for="tick-rate-input">Tick rate: {tickRate}</label>
+<label for="tick-rate-input">Tick rate: {$tickRate}</label>
 <br/>
-<input id="tick-rate-input" type="range" min={1} max={100} bind:value={tickRate}>
+<input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
 <br/>
 <PerspectiveVisualizer player1={player1} player2={networkedPlayer} />

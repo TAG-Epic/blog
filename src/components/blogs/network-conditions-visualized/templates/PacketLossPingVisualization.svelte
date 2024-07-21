@@ -5,6 +5,11 @@
     import type { NetworkerOptions, NetworkerPlayer } from "../networker";
     import PerspectiveVisualizer from "../PerspectiveVisualizer.svelte";
     import BASIC_WAYPOINT_PATH from "./basic-waypoint-path.json";
+    import { writable } from "svelte/store";
+
+    let tickRate = writable<number>(10);
+    let pingMs = writable<number>(100);
+    let packetLossPercent = writable<number>(5);
     
     let playersConfig = new Map<string, NetworkerPlayer>();
     let player1 = new WaypointPlayer({
@@ -43,20 +48,17 @@
                 jitter: 0
             },
             outbound: {
-                packetloss: 0,
-                ping: 0,
+                packetloss: $packetLossPercent / 100,
+                ping: $pingMs,
                 jitter: 0
             }
         }
     });
 
-    let tickRate = 10;
-    let pingMs = 100;
-    let packetLossPercent = 5;
 
 
     let config: NetworkerOptions = {
-        tickRate: tickRate,
+        tickRate: $tickRate,
         components: {
             server: {},
             players: playersConfig
@@ -89,21 +91,38 @@
     function changePacketLoss(newPacketLossPercent: number) {
         config.components.players.get("user-2")!.networking.outbound.packetloss = newPacketLossPercent / 100;
     }
+    
+    tickRate.subscribe(changeTickRate);
+    pingMs.subscribe(changePing);
+    packetLossPercent.subscribe(changePacketLoss);
 
-    $: changeTickRate(tickRate);
-    $: changePing(pingMs);
-    $: changePacketLoss(packetLossPercent);
+    // Analytics
+    let hasFiddled = false;
+    
+    function onFiddle(): void {
+        if (!hasFiddled) {
+            hasFiddled = true;
+            window.plausible("network conditions visualized: fiddle", {
+                props: {
+                    visualization: "packet-loss-ping"
+                }
+            });
+        }
+    }
+    tickRate.subscribe(onFiddle);
+    pingMs.subscribe(onFiddle);
+    packetLossPercent.subscribe(onFiddle);
 </script>
 
-<label for="tick-rate-input">Tick rate: {tickRate}</label>
+<label for="tick-rate-input">Tick rate: {$tickRate}</label>
 <br/>
-<input id="tick-rate-input" type="range" min={1} max={100} bind:value={tickRate}>
+<input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
 <br/>
-<label for="ping-input">Ping: {pingMs}ms</label>
+<label for="ping-input">Ping: {$pingMs}ms</label>
 <br/>
-<input id="ping-input" type="range" min={0} max={1000} bind:value={pingMs}>
+<input id="ping-input" type="range" min={0} max={1000} bind:value={$pingMs}>
 <br/>
-<label for="packetloss-input">Packetloss: {packetLossPercent}%</label>
+<label for="packetloss-input">Packetloss: {$packetLossPercent}%</label>
 <br/>
-<input id="packetloss-input" type="range" min={0} max={100} bind:value={packetLossPercent}>
+<input id="packetloss-input" type="range" min={0} max={100} bind:value={$packetLossPercent}>
 <PerspectiveVisualizer player1={player1} player2={networkedPlayer} />

@@ -19,17 +19,17 @@ import PlayerMarker from "../../components/blogs/network-conditions-visualized/P
         I need to consider that they probably aren't massive networking nerds. So lets go through some basic stuff:<br/>
         Your position isn't magically sent smooth to all the other players for performance reasons. It is instead sent as individual position ticks at a fixed tick rate<a href="#footnote-what-is-tickrate">²</a>
     </p>
-    <SendNetworkLogsVisualizer client:visible />
+    <SendNetworkLogsVisualizer client:visible client:only />
     <p>
         The <PlayerMarker color="red" /> local player is smooth as we know what the position is every frame.
         This is different for the <PlayerMarker color="blue" /> remote player, which will only be updated once per tick.
     </p>
-    <NoSmoothingStutteringComparison client:visible /> 
+    <NoSmoothingStutteringComparison client:visible client:only /> 
     <p>
         Vail runs at 60<a href="#footnote-vails-tickrate">³</a> ticks per second, which does look fine enough in the ideal conditions we have right now.
         But unfortunately data doesn't magically instantly transport to anywhere in the world, so we have things like ping and packetloss.
     </p>
-    <PacketLossPingVisualization client:visible />
+    <PacketLossPingVisualization client:visible client:only />
     <h2>Footnotes</h2>
     <ol class="footnotes">
         <li id="footnote-pls-fix-netcode"><a href="https://discord.com/channels/710682414225162301/1223413597435072653">cough cough</a></li>
