@@ -13,7 +13,8 @@ export type SmoothingConfigNoSmoothing = {
     type: SmoothingType.NONE
 }
 export type SmoothingConfigSmoothing = {
-    type: SmoothingType.SMOOTHED
+    type: SmoothingType.SMOOTHED,
+    extrapolate: boolean
 };
 export type NetworkedPlayerConfig = {
     networker: Networker;
@@ -23,24 +24,76 @@ export type NetworkedPlayerConfig = {
 
     smoothing: NetworkedPlayerSmoothingConfig;
 };
+type PositionInfo = {
+    last: {
+        receivedAt: number,
+        position: Position
+    },
+    second: {
+        receivedAt: number,
+        position: Position
+    }
+};
 
 export class NetworkedPlayer extends BasePlayer {
     #config: NetworkedPlayerConfig;
-    #lastReceivedPosition: Position;
+    #positionInfo: PositionInfo;
     #lastReceivedPacketId: number;
+    #eventHandler: (event: NetworkerEvent) => void;
 
     constructor(config: NetworkedPlayerConfig) {
         super();
 
+        let currentTime = Date.now();
+
         this.#config = config;
-        this.#lastReceivedPosition = this.#config.defaultPosition;
+        this.#positionInfo = {
+            second: {
+                receivedAt: currentTime,
+                position: this.#config.defaultPosition
+            },
+            last: {
+                receivedAt: currentTime,
+                position: this.#config.defaultPosition
+            }
+        };
         this.#lastReceivedPacketId = -1;
 
-        this.#config.networker.addListener((event) => {this.handleEvent(event)});
+        this.#eventHandler = (event: NetworkerEvent) => {
+            this.handleEvent(event);
+        }
+
+        this.#config.networker.addListener(this.#eventHandler);
     }
     getPosition(): Position {
         if (this.#config.smoothing.type === SmoothingType.NONE) {
-            return this.#lastReceivedPosition;
+            return this.#positionInfo.last.position;
+        }
+        if (this.#config.smoothing.type === SmoothingType.SMOOTHED) {
+            let timeBetween = this.#positionInfo.last.receivedAt - this.#positionInfo.second.receivedAt;
+
+            // Fixes 0 division error
+            if (timeBetween === 0) {
+                return this.#positionInfo.second.position;
+            }
+
+            let offsetStart = this.#positionInfo.second.receivedAt + timeBetween;
+
+            let currentTime = Date.now();
+
+            let currentRelativeToStart = currentTime - offsetStart;
+            let progressFraction = currentRelativeToStart / timeBetween;
+                
+            if (progressFraction > 1 && !this.#config.smoothing.extrapolate) {
+                return this.#positionInfo.last.position;
+            }
+            let lastPosition = this.#positionInfo.second.position;
+            let newPosition = this.#positionInfo.last.position;
+
+            return {
+                x: lastPosition.x + ((newPosition.x - lastPosition.x) * progressFraction),
+                y: lastPosition.y + ((newPosition.y - lastPosition.y) * progressFraction)
+            };
         }
 
         throw "Unsupported smoothing type";
@@ -54,6 +107,13 @@ export class NetworkedPlayer extends BasePlayer {
         if (event.id < this.#lastReceivedPacketId) return;
         this.#lastReceivedPacketId = event.id;
         
-        this.#lastReceivedPosition = event.data;
+        this.#positionInfo.second = this.#positionInfo.last;
+        this.#positionInfo.last = {
+            position: event.data,
+            receivedAt: Date.now()
+        };
+    }
+    stop(): void {
+        this.#config.networker.removeListener(this.#eventHandler);
     }
 }

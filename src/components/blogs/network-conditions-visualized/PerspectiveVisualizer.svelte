@@ -1,7 +1,11 @@
 <script lang="ts">
     import type { BasePlayer } from "./networker/players/base";
+    import type { StaticShape } from "./shapes";
+    import { ShapeType } from "./shapes";
     const CANVAS_HEIGHT = 1000;
     const CANVAS_WIDTH = 2000;
+
+    export let staticShapes: StaticShape[] = [];
 
     class Renderer {
         canvas: HTMLCanvasElement;
@@ -30,7 +34,12 @@
                 requestAnimationFrame(() => {this.renderFrame()});
             }
             this.context.reset();
+            
+            this.#drawStatic();
+            this.#drawPlayers();
 
+        }
+        #drawPlayers() {
             let player1Position = player1.getPosition();
 
             this.context.beginPath();
@@ -44,7 +53,15 @@
             this.context.ellipse(player2Position.x, player2Position.y, 10, 10, 0, 0, 360);
             this.context.fillStyle = "blue";
             this.context.fill();
-
+        }
+        #drawStatic() {
+            for (const shape of staticShapes) {
+                if (shape.type === ShapeType.RECTANGLE) {
+                    this.context.fillStyle = shape.color;
+                    this.context.rect(shape.x, shape.y, shape.width, shape.height);
+                    this.context.fill();
+                }
+            }
         }
     }
     
