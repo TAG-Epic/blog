@@ -1,5 +1,6 @@
 import type { Position } from "../misc";
 import { BasePlayer } from "./base";
+import type { PlayerRenderConfig } from "./base";
 
 export enum BotActionType {
     WAYPOINT,
@@ -20,6 +21,7 @@ export type BotPlayerOptions = {
     actions: BotAction[],
     movementSpeed: number;
     tickSpeed: number;
+    rendering: PlayerRenderConfig
 };
 
 export class BotPlayer extends BasePlayer {
@@ -113,6 +115,9 @@ export class BotPlayer extends BasePlayer {
 
     #getDistanceBetweenPoints(point1: Position, point2: Position): number {
         return Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
+    }
+    getRenderConfig(): PlayerRenderConfig {
+        return this.#config.rendering;
     }
 }
 

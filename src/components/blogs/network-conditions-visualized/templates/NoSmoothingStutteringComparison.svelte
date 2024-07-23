@@ -3,7 +3,7 @@
     import { NetworkedPlayer, SmoothingType } from "../networker/players/networked";
     import { Networker } from "../networker";
     import type { NetworkerOptions, NetworkerPlayer } from "../networker";
-    import PerspectiveVisualizer from "../PerspectiveVisualizer.svelte";
+    import GameBoard from "../GameBoard.svelte";
     import { writable } from "svelte/store";
     import { PATH } from "../paths/basic-square";
     import { FiddleAnalyticTracker } from "../fiddle-analytic";
@@ -12,12 +12,18 @@
     let player1 = new BotPlayer({
         movementSpeed: 1,
         tickSpeed: 1,
-        actions: PATH 
+        actions: PATH,
+        rendering: {
+            color: "red"
+        }
     });
     let player2 = new BotPlayer({
         movementSpeed: 1,
         tickSpeed: 1,
         actions: PATH,
+        rendering: {
+            color: "transparent"
+        }
     });
     playersConfig.set("user-1", {
         positionRequestCallback: () => {
@@ -78,6 +84,9 @@
         defaultPosition: {
             x: 0,
             y: 0
+        },
+        rendering: {
+            color: "blue"
         }
     });
 
@@ -111,4 +120,4 @@
         <input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
     </div>
 </section>
-<PerspectiveVisualizer player1={player1} player2={networkedPlayer} />
+<GameBoard players={[player1, networkedPlayer]} />

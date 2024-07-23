@@ -5,6 +5,7 @@
     const CANVAS_HEIGHT = 1000;
     const CANVAS_WIDTH = 2000;
 
+    export let players: BasePlayer[];
     export let staticShapes: StaticShape[] = [];
 
     class Renderer {
@@ -40,19 +41,15 @@
 
         }
         #drawPlayers() {
-            let player1Position = player1.getPosition();
+            for (const player of players) {
+                let position = player.getPosition();
+                let renderConfig = player.getRenderConfig();
+                this.context.beginPath();
+                this.context.ellipse(position.x, position.y, 10, 10, 0, 0, 360);
+                this.context.fillStyle = renderConfig.color;
+                this.context.fill();
 
-            this.context.beginPath();
-            this.context.ellipse(player1Position.x, player1Position.y, 10, 10, 0, 0, 360);
-            this.context.fillStyle = "red";
-            this.context.fill();
-
-            let player2Position = player2.getPosition();
-            
-            this.context.beginPath();
-            this.context.ellipse(player2Position.x, player2Position.y, 10, 10, 0, 0, 360);
-            this.context.fillStyle = "blue";
-            this.context.fill();
+            }
         }
         #drawStatic() {
             for (const shape of staticShapes) {
@@ -65,8 +62,6 @@
         }
     }
     
-    export let player1: BasePlayer;
-    export let player2: BasePlayer;
     let canvas: HTMLCanvasElement;
     let activeRenderer: Renderer | undefined;
 

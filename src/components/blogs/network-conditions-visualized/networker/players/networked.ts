@@ -2,6 +2,7 @@ import type { Position } from "../misc";
 import { BasePlayer } from "./base";
 import type { Networker } from "../";
 import { NetworkerEventType, type NetworkerEvent } from "../events";
+import type { PlayerRenderConfig } from "./base";
 
 
 export type NetworkedPlayerSmoothingConfig = SmoothingConfigSmoothing | SmoothingConfigNoSmoothing;
@@ -21,8 +22,8 @@ export type NetworkedPlayerConfig = {
     playerId: string;
     perspectivePlayerId: string;
     defaultPosition: Position;
-
     smoothing: NetworkedPlayerSmoothingConfig;
+    rendering: PlayerRenderConfig;
 };
 type PositionInfo = {
     last: {
@@ -115,5 +116,8 @@ export class NetworkedPlayer extends BasePlayer {
     }
     stop(): void {
         this.#config.networker.removeListener(this.#eventHandler);
+    }
+    getRenderConfig(): PlayerRenderConfig {
+        return this.#config.rendering;
     }
 }

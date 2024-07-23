@@ -12,7 +12,10 @@
     let player1 = new BotPlayer({
         movementSpeed: 1,
         tickSpeed: 1,
-        actions: PATH
+        actions: PATH,
+        rendering: {
+            color: "transparent"
+        }
     });
     playersConfig.set("user-1", {
         positionRequestCallback: () => {
