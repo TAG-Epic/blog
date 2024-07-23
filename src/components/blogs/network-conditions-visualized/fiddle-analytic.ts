@@ -9,14 +9,18 @@ export class FiddleAnalyticTracker {
     constructor(options: FiddleAnalyticTrackerOptions) {
         this.#options = options;
     }
-
     createControlHook(options: FiddleAnalyticControlOptions): (value: any) => void {
         let isNotInitial = false;
+        let hasFiddled = false;
         return () => {
             if (!isNotInitial) {
                 isNotInitial = true;
                 return;
             }
+            if (hasFiddled) {
+                return;
+            }
+            hasFiddled = true;
             console.log(`submitting fiddle event for ${this.#options.visualization} (control ${options.input}) to plausible`);
             
             let plausible = window["plausible"];
