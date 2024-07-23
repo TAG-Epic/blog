@@ -94,16 +94,16 @@ return {
         Anyway these are the most important networking concepts that can cause issues when playing games. There are some other like bandwidth that are also important, however they can be pretty easily emulated by just increasing packetloss and ping as tick rate goes up.
     </p>
     <h2>Alright, let's get into how this affects gameplay</h2>
-    <h3>Jigglepeaking</h3>
+    <h3>Jigglepeeking</h3>
     <p>
-        Jigglepeaking is when you peak in and out from behind a wall quickly to get some shots in before unpeaking before the enemy is able to see you.
+        Jigglepeeking is when you peek in and out from behind a wall quickly to get some shots in before unpeeking before the enemy is able to see you.
         This works really well on low-tickrate games, but isn't as effective on high tickrate games.
         
     </p>
     <JigglePeakingVisualization client:visible client:only />
     <p>
         The player is invisible here from the <PlayerMarker color="blue" /> remote perspective as the player is ticked when the player is behind cover and not when they are outside cover.
-        So the reason "jigglepeaking doesn't work in VAIL" is because it has a really high tickrate.
+        So the reason "jigglepeeking doesn't work in VAIL" is because it has a really high tickrate.
     </p>
     <h3>Ping swinging</h3>
     <p>
@@ -114,7 +114,7 @@ return {
     <h2>Footnotes</h2>
     <ol class="footnotes">
         <li id="footnote-pls-fix-netcode"><a href="https://discord.com/channels/710682414225162301/1223413597435072653">cough cough</a></li>
-        <li id="footnote-what-is-tickrate">Tick rate is how many times a spesific action should be ran. Minecraft for example does all its game logic 20 times per second.</li>
+        <li id="footnote-what-is-tickrate">Tick rate is how many times a specific action should be ran. Minecraft for example does all its game logic 20 times per second.</li>
         <li id="footnote-vails-tickrate"><a href="https://discord.com/channels/710682414225162301/1223413597435072653/1223982256431824986">VAIL's tickrate confirmed by aoud</a></li>
         <li id="footnote-what-is-extrapolation"><a href="https://en.wikipedia.org/wiki/Extrapolation">Extrapolation explained by WikiPedia</a></li>
         <li id="footnote-why-vail-doesnt-use-extrapolation"><a href="https://discord.com/channels/710682414225162301/1223413597435072653/1223588169409105950">Why VAIL doesn't use extrapolation</a></li>
