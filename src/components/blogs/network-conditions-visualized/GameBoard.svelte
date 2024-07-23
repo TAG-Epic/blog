@@ -2,7 +2,7 @@
     import type { BasePlayer } from "./networker/players/base";
     import type { StaticShape } from "./shapes";
     import { ShapeType } from "./shapes";
-    export let canvas_size: number = 1000;
+    export let canvas_size: number = 600;
 
     export let players: BasePlayer[];
     export let staticShapes: StaticShape[] = [];
@@ -82,5 +82,6 @@
 <style>
     .visualization {
         aspect-ratio: 1/1;
+        max-width: 100%;
     }
 </style>

@@ -35,6 +35,11 @@
 
 <span>Network logs (LIVE)</span>
 <div class="logs-container" aria-hidden={true}>
+    {#each Array(maxLogLines - logs.length).fill(null) as _}
+        <div class="log-line fake-line">
+            <span>Shhh this is here so I don't have to deal with css</span>
+        </div>
+    {/each}
     {#each logs as logLine}
         {@const dropped = isEventDropped(logLine)}
         <div class="log-line" data-event-type={logLine.type} data-dropped={dropped}>
@@ -58,6 +63,8 @@
     .logs-container {
         border: 1px solid #121212;
         padding: .2rem;
-        height: 26ch;
+    }
+    .fake-line {
+        visibility: hidden;
     }
 </style>

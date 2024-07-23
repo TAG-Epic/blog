@@ -6,7 +6,13 @@ let html = codeToHtml(code, {
     lang: language,
     theme: "min-dark"
 });
-
 ---
 
-<div set:html={html}></div>
+<style>
+    .source {
+        width: 100%;
+        overflow-y: scroll;
+    }
+</style>
+
+<div class="source" set:html={html}></div>
