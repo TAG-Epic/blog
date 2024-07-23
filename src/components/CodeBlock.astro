@@ -1,0 +1,12 @@
+---
+import { codeToHtml } from 'shiki'
+const { code, language } = Astro.props;
+
+let html = codeToHtml(code, {
+    lang: language,
+    theme: "min-dark"
+});
+
+---
+
+<div set:html={html}></div>

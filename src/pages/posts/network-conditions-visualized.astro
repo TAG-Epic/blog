@@ -1,6 +1,6 @@
 ---
 import BlogPost from '../../layouts/BlogPost.astro';
-import { Prism } from '@astrojs/prism';
+import CodeBlock from "../../components/CodeBlock.astro";
 import POST_METADATA from "./network-conditions-visualized.json";
 
 import Visualizer from "../../components/blogs/network-conditions-visualized/Visualizer.svelte";
@@ -67,9 +67,7 @@ return {
         
         Anyways ping isn't just a "static" time, there is also jitter which is a part of your ping which is random.
         My super simplified version of jitter just does
-        <code language="python">
-            ping = static_ping + (jitter * random.random())
-        </code>
+        <CodeBlock language="python" code="ping = static_ping + (jitter * random.random())" />
         which isn't perfect, but it should be accurate enough for these visualizations.
     </p>
     <JitterVisualization client:visible client:only />
@@ -86,7 +84,7 @@ return {
 
         My smoothing implementation is quite simple and probably not as sophisticated as the one used by VAIL and other games.
     </p>
-    <Prism code={smoothingImplementation} lang="js" />
+    <CodeBlock code={smoothingImplementation} language="js" />
     <p>
         My implementation also supports extrapolation<a href="footnote-what-is-extrapolation">⁴</a> continuing estimating the position past what we know, which may work well in environments with higher packet loss.
         This is however not used by games like VAIL as they "prefer what you see be tightly coupled to the raw data/updates"<a href="#footnote-why-vail-doesnt-use-extrapolation">⁵</a>

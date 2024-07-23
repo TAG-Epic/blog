@@ -6,6 +6,7 @@
     import PerspectiveVisualizer from "../PerspectiveVisualizer.svelte";
     import { PATH } from "../paths/basic-square";
     import { writable } from "svelte/store";
+    import { FiddleAnalyticTracker } from "../fiddle-analytic";
 
     let tickRate = writable<number>(10);
     let pingMs = writable<number>(100);
@@ -99,32 +100,36 @@
     packetLossPercent.subscribe(changePacketLoss);
 
     // Analytics
-    let hasFiddled = false;
-    
-    function onFiddle(): void {
-        if (!hasFiddled) {
-            hasFiddled = true;
-            window.plausible("network conditions visualized: fiddle", {
-                props: {
-                    visualization: "packet-loss-ping"
-                }
-            });
-        }
-    }
-    tickRate.subscribe(onFiddle);
-    pingMs.subscribe(onFiddle);
-    packetLossPercent.subscribe(onFiddle);
+    let tracker = new FiddleAnalyticTracker({
+        visualization: "packetloss-ping"
+    });
+    tickRate.subscribe(tracker.createControlHook({input: "tick-rate"}));
+    pingMs.subscribe(tracker.createControlHook({input: "ping"}));
+    packetLossPercent.subscribe(tracker.createControlHook({input: "packet-loss"}));
 </script>
+<style>
+    .controls {
+        display: flex;
+        flex-direction: column;
+    }
+    .control {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
 
-<label for="tick-rate-input">Tick rate: {$tickRate}</label>
-<br/>
-<input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
-<br/>
-<label for="ping-input">Ping: {$pingMs}ms</label>
-<br/>
-<input id="ping-input" type="range" min={0} max={1000} bind:value={$pingMs}>
-<br/>
-<label for="packetloss-input">Packetloss: {$packetLossPercent}%</label>
-<br/>
-<input id="packetloss-input" type="range" min={0} max={100} bind:value={$packetLossPercent}>
+<section class="controls">
+    <div class="tick-rate-control control">
+        <label for="tick-rate-input">Tick rate: {$tickRate}</label>
+        <input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
+    </div>
+    <div class="ping-control control">
+        <label for="ping-input">Ping: {$pingMs}ms</label>
+        <input id="ping-input" type="range" min={0} max={1000} bind:value={$pingMs}>
+    </div>
+    <div class="packetloss-control control">
+        <label for="packetloss-input">Packetloss: {$packetLossPercent}%</label>
+        <input id="packetloss-input" type="range" min={0} max={100} bind:value={$packetLossPercent}>
+    </div>
+</section>
 <PerspectiveVisualizer player1={player1} player2={networkedPlayer} />

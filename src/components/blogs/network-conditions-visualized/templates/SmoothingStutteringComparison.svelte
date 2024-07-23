@@ -7,6 +7,7 @@
     import { PATH } from "../paths/basic-square";
     import { writable } from "svelte/store";
     import { onDestroy } from "svelte";
+    import { FiddleAnalyticTracker } from "../fiddle-analytic";
 
     let tickRate = writable<number>(10);
     let pingMs = writable<number>(100);
@@ -100,7 +101,7 @@
     function changeJitter(newJitterMs: number): void {
         config.components.players.get("user-2")!.networking.outbound.jitter = newJitterMs;
     }
-    function changeEstimatePastMax(newValue: boolean): void {
+    function changeExtrapolate(newValue: boolean): void {
         networkedPlayer.stop();
         networkedPlayer = new NetworkedPlayer({
             networker,
@@ -121,7 +122,7 @@
     pingMs.subscribe(changePing);
     packetLossPercent.subscribe(changePacketLoss);
     jitterMs.subscribe(changeJitter);
-    extrapolate.subscribe(changeEstimatePastMax);
+    extrapolate.subscribe(changeExtrapolate);
 
     onDestroy(() => {
         networker.stop();
@@ -129,24 +130,29 @@
     });
 
     // Analytics
-    let hasFiddled = false;
-    
-    function onFiddle(): void {
-        if (!hasFiddled) {
-            hasFiddled = true;
-            window.plausible("network conditions visualized: fiddle", {
-                props: {
-                    visualization: "smoothing-stuttering-comparison"
-                }
-            });
-        }
-    }
-    tickRate.subscribe(onFiddle);
-    pingMs.subscribe(onFiddle);
-    packetLossPercent.subscribe(onFiddle);
-    jitterMs.subscribe(onFiddle);
-    extrapolate.subscribe(onFiddle);
+    let tracker = new FiddleAnalyticTracker({
+        visualization: "smoothing-stuttering-comparison"
+    });
+    tickRate.subscribe(tracker.createControlHook({input: "tick-rate"}));
+    pingMs.subscribe(tracker.createControlHook({input: "ping"}));
+    packetLossPercent.subscribe(tracker.createControlHook({input: "packet-loss"}));
+    jitterMs.subscribe(tracker.createControlHook({input: "jitter"}));
+    extrapolate.subscribe(tracker.createControlHook({input: "extrapolate"}));
 </script>
+<style>
+    .controls {
+        display: flex;
+        flex-direction: column;
+    }
+    .control {
+        display: flex;
+        flex-direction: column;
+    }
+    .extrapolate-control {
+        flex-direction: row;
+        gap: 1rem;
+    }
+</style>
 
 <section class="controls">
     <div class="tick-rate-control control">
@@ -167,7 +173,7 @@
     </div>
     <div class="extrapolate-control control">
         <label for="extrapolate-input">Extrapolate</label>
-        <input id="extrapolate-input" type="checkbox" bind:value={$extrapolate}>
+        <input id="extrapolate-input" type="checkbox" bind:checked={$extrapolate}>
     </div>
 </section>
 <PerspectiveVisualizer player1={player1} player2={networkedPlayer} />

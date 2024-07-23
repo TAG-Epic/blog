@@ -6,6 +6,7 @@
     import PerspectiveVisualizer from "../PerspectiveVisualizer.svelte";
     import { writable } from "svelte/store";
     import { PATH } from "../paths/basic-square";
+    import { FiddleAnalyticTracker } from "../fiddle-analytic";
     
     let playersConfig = new Map<string, NetworkerPlayer>();
     let player1 = new BotPlayer({
@@ -87,23 +88,27 @@
     tickRate.subscribe(changeTickRate);
     
     // Analytics
-    let hasFiddled = false;
-    
-    function onFiddle(): void {
-        if (!hasFiddled) {
-            hasFiddled = true;
-            window.plausible("network conditions visualized: fiddle", {
-                props: {
-                    visualization: "movement-no-smoothing"
-                }
-            });
-        }
-    }
-    tickRate.subscribe(onFiddle);
+    // Analytics
+    let tracker = new FiddleAnalyticTracker({
+        visualization: "no-smoothing-stuttering-comparison"
+    });
+    tickRate.subscribe(tracker.createControlHook({input: "tick-rate"}));
 </script>
+<style>
+    .controls {
+        display: flex;
+        flex-direction: column;
+    }
+    .control {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
 
-<label for="tick-rate-input">Tick rate: {$tickRate}</label>
-<br/>
-<input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
-<br/>
+<section class="controls">
+    <div class="tick-rate-control control">
+        <label for="tick-rate-input">Tick rate: {$tickRate}</label>
+        <input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
+    </div>
+</section>
 <PerspectiveVisualizer player1={player1} player2={networkedPlayer} />

@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
-    "@astrojs/prism": "^3.1.0",
     "@astrojs/rss": "^2.4.4",
     "@astrojs/sitemap": "^2.0.2",
     "@astrojs/svelte": "^5.5.0",
     "astro": "^2.10.13",
+    "shiki": "^1.11.0",
     "svelte": "^4.2.18",
     "typescript": "^5.4.5"
   }

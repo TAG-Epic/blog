@@ -6,6 +6,6 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://blog.farfrom.world',
-  integrations: [mdx(), sitemap(), svelte()]
+    site: 'https://blog.farfrom.world',
+    integrations: [mdx(), sitemap(), svelte()],
 });

@@ -48,9 +48,7 @@ export class Networker {
         this.#listeners.push(listener);
     }
     removeListener(toRemove: NetworkerListener): void {
-        console.log(this.#listeners);
         this.#listeners = this.#listeners.filter(listener => listener !== toRemove);
-        console.log(this.#listeners);
     }
     #dispatch(event: NetworkerEvent) {
         for (const listener of this.#listeners) {
