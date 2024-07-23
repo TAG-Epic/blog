@@ -9,6 +9,8 @@ import NoSmoothingStutteringComparison from "../../components/blogs/network-cond
 import PacketLossPingVisualization from "../../components/blogs/network-conditions-visualized/templates/PacketLossPingVisualization.svelte";
 import JitterVisualization from "../../components/blogs/network-conditions-visualized/templates/JitterVisualization.svelte";
 import SmoothingStutteringComparison from "../../components/blogs/network-conditions-visualized/templates/SmoothingStutteringComparison.svelte";
+import JigglePeakingVisualization from "../../components/blogs/network-conditions-visualized/templates/JigglePeakingVisualization.svelte";
+import PingSwingVisualization from "../../components/blogs/network-conditions-visualized/templates/PingSwingVisualization.svelte";
 import PlayerMarker from "../../components/blogs/network-conditions-visualized/PlayerMarker.svelte";
 
 let smoothingImplementation = `
@@ -53,7 +55,7 @@ return {
     <SendNetworkLogsVisualizer client:visible client:only />
     <p>
         The <PlayerMarker color="red" /> local player is smooth as we know what the position is every frame.
-        This is different for the <PlayerMarker color="blue" /> remote player, which will only be updated once per tick.
+        This is different for the <PlayerMarker color="blue" /> remote, which is the local player but from the perspective of another player, so this will only be updated once per tick.
     </p>
     <NoSmoothingStutteringComparison client:visible client:only /> 
     <p>
@@ -87,9 +89,28 @@ return {
     <CodeBlock code={smoothingImplementation} language="js" />
     <p>
         My implementation also supports extrapolation<a href="footnote-what-is-extrapolation">⁴</a> continuing estimating the position past what we know, which may work well in environments with higher packet loss.
-        This is however not used by games like VAIL as they "prefer what you see be tightly coupled to the raw data/updates"<a href="#footnote-why-vail-doesnt-use-extrapolation">⁵</a>
+        This is however not used by games like VAIL as they "prefer what you see be tightly coupled to the raw data/updates"<a href="#footnote-why-vail-doesnt-use-extrapolation">⁵</a>.
+        
+        Anyway these are the most important networking concepts that can cause issues when playing games. There are some other like bandwidth that are also important, however they can be pretty easily emulated by just increasing packetloss and ping as tick rate goes up.
     </p>
     <h2>Alright, let's get into how this affects gameplay</h2>
+    <h3>Jigglepeaking</h3>
+    <p>
+        Jigglepeaking is when you peak in and out from behind a wall quickly to get some shots in before unpeaking before the enemy is able to see you.
+        This works really well on low-tickrate games, but isn't as effective on high tickrate games.
+        
+    </p>
+    <JigglePeakingVisualization client:visible client:only />
+    <p>
+        The player is invisible here from the <PlayerMarker color="blue" /> remote perspective as the player is ticked when the player is behind cover and not when they are outside cover.
+        So the reason "jigglepeaking doesn't work in VAIL" is because it has a really high tickrate.
+    </p>
+    <h3>Ping swinging</h3>
+    <p>
+        Ping swinging is where you swing around a corner where you know the enemy is in view so that you can use your ping to kill them before they can even see you.
+        Ping swinging is a pretty useful way to get a trade as in VAIL it trusts both clients when they say they killed the enemy.
+    </p>
+    <PingSwingVisualization client:visible client:only />
     <h2>Footnotes</h2>
     <ol class="footnotes">
         <li id="footnote-pls-fix-netcode"><a href="https://discord.com/channels/710682414225162301/1223413597435072653">cough cough</a></li>

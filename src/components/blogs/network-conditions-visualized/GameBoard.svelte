@@ -2,8 +2,7 @@
     import type { BasePlayer } from "./networker/players/base";
     import type { StaticShape } from "./shapes";
     import { ShapeType } from "./shapes";
-    const CANVAS_HEIGHT = 1000;
-    const CANVAS_WIDTH = 2000;
+    export let canvas_size: number = 1000;
 
     export let players: BasePlayer[];
     export let staticShapes: StaticShape[] = [];
@@ -78,10 +77,10 @@
     $: handleCanvasChange(canvas);
 </script>
 
-<canvas class="visualization" height={CANVAS_HEIGHT} width={CANVAS_WIDTH} bind:this={canvas} />
+<canvas class="visualization" height={canvas_size} width={canvas_size} bind:this={canvas} />
 
 <style>
     .visualization {
-        aspect-ratio: 1/2;
+        aspect-ratio: 1/1;
     }
 </style>

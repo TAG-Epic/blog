@@ -18,7 +18,14 @@ export class FiddleAnalyticTracker {
                 return;
             }
             console.log(`submitting fiddle event for ${this.#options.visualization} (control ${options.input}) to plausible`);
-            window.plausible(`network conditions visualized: fiddle`, {
+            
+            let plausible = window["plausible"];
+            if (plausible === undefined) {
+                console.warn("plausible not loaded :(");
+                return;
+            }
+
+            plausible(`network conditions visualized: fiddle`, {
                 props: {
                     visualization: this.#options.visualization,
                     input: options.input
