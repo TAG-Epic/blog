@@ -43,14 +43,14 @@ return {
 ---
 <BlogPost data={POST_METADATA}>
     <p>
-        In the <a href="https://discord.gg/vailvr">VAIL VR discord</a> I often see people complain about network conditions and just blame it on ping to the point where people are blaming frame drops on ping.
+        In the <a href="https://discord.gg/vailvr">VAIL VR discord</a> I often see people complain about various network conditions and just blame it on ping, to the point where people are blaming frame drops on ping.
         This annoys me <i>slightly</i> so I've decided to bite the bullet and write some frontend code to visualize what the different network conditions <i>actually</i> does to your gameplay.
     </p>
     <h2>Lets take a step back</h2>
     <p>
-        Right so as I will be sharing this in the <a href="https://discord.gg/vailvr">VAIL VR discord</a> whenever someone who don't know how games networking works complains about something and blames it on netcode or just tells the devs to "just magically fix netcode"<a href="#footnote-pls-fix-netcode">¹</a>,
+        Right so as I will be sharing this in the <a href="https://discord.gg/vailvr">VAIL VR discord</a> whenever someone who don't know how games networking works start to complain and blame ping, or when people complain to the devs saying "just magically fix netcode"<a href="#footnote-pls-fix-netcode">¹</a>,
         I need to consider that they probably aren't massive networking nerds. So lets go through some basic stuff:<br/>
-        Your position isn't magically sent smooth to all the other players for performance reasons. It is instead sent as individual position ticks at a fixed tick rate<a href="#footnote-what-is-tickrate">²</a>
+        Your position isn't magically sent smooth to all the other players for performance reasons. It is instead sent as individual position "ticks" at a fixed tick rate<a href="#footnote-what-is-tickrate">²</a>
     </p>
     <SendNetworkLogsVisualizer client:visible client:only />
     <p>
