@@ -9,6 +9,6 @@ export const metadata: PostMetadata = {
         image: HeroImage,
         credit: "Photo by RICHDGEB. He did not wish to share his score.",
     },
-    tags: ["vail"],
+    tags: ["vailvr"],
     released: true
 }
