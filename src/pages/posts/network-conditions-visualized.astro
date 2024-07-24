@@ -64,9 +64,14 @@ return {
     </p>
     <PacketLossPingVisualization client:visible client:only />
     <p>
-        Now remember that ping here just isn't your ping, but its also the ping from you -&gt; the gameserver -&gt; other player, so for a normal "low ping" game the ping would be around 50ms per player, so you would have 100ms ping total.
-        But sadly, most games are very high ping, usually with 120ms ping per player, making it 240ms.
-        
+        Now remember that ping is more complex than just the number you see on the scoreboard. The ping you see on the scoreboard is the ping from you -&gt; the game server -&gt; you, which is also called RTT (round trip time).
+        This number is generally misleading for games like VAIL as actions like moving will be sent from you -&gt; the game server without needing to be acknowledged by the game server, so when I'm referring to a user's ping in this post I mean one-way ping.
+        Adding to the confusion of what ping is referring to, the packets need to go from you -&gt; the game server -&gt; the other player to be visible on their screen.
+        So when you are inputting ping into the visualizations here you would use
+        <CodeBlock language="python" code="(your_ping / 2) + (enemy_ping / 2)" />
+        for the ping input.
+        For EU-only matches I would use <code>40ms</code> ping for the visualizations, but for the more common all EU players on NA servers I would use around <code>120ms</code> ping for the visualizations.
+        <br/><br/>
         Anyways ping isn't just a "static" time, there is also jitter which is a part of your ping which is random.
         My super simplified version of jitter just does
         <CodeBlock language="python" code="ping = static_ping + (jitter * random.random())" />
