@@ -7,6 +7,7 @@
 </script>
 <svelte:head>
     <title>{data.metadata.title}</title>
+    <meta property="og:title" content={data.metadata.title} />
     <meta property="og:description" content={data.metadata.description} />
     <meta property="og:image" content={data.metadata.hero.image} />
 </svelte:head>
