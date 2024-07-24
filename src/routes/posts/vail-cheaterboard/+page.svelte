@@ -1,5 +1,6 @@
 <script lang="ts">
     import Cheaterboard from "./Cheaterboard.svelte";
+    import MapleConfession from "./assets/maple-confession.png";
 </script>
 
 <p>
@@ -7,7 +8,7 @@
     A while back I started tracking everyone's stats as I was receiving reports from friends catching GigaKnight abusing the hardpoint exploit to get to #1 on the kill leaderboards.<br/><br/>
     
     So back to present day, I have 67 million rows worth of stats and im tracking 77k vail users's stats constantly.
-    Up to this day this data has mostly been used to create <a href="/public/assets/blogs/vail-cheaterboard/how-many-people-got-which-skin.png" target="blank">✨ pretty graphs ✨</a> but today that is changing.
+    Up to this day this data has mostly been used to create ✨ pretty graphs ✨ but today that is changing.
 </p>
 
 <h2>The Cheaterboard</h2>
@@ -28,7 +29,7 @@ Before I knew that stats was misattributed to Maple for the first day the stat s
 This was quite a surprise to me as Maple has been very against abusing the hardpoint exploit, so I DMed Maple.<br/>
 
 I may have then uh given maple a <i>mild heart attack</i> (oops, sorry!) after asking him. After which he did confess to using it, however we found out this was before I started tracking the stats so he is not on the cheaterboard.
-<img src="/assets/blogs/vail-cheaterboard/maple-confession.png" alt="Maple confessing to cheating">
+<img src={MapleConfession} alt="Maple confessing to cheating">
 </p>
 <style>
     h2 {
