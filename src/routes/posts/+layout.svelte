@@ -5,6 +5,11 @@
     };
     export let data: LoadData;
 </script>
+<svelte:head>
+    <title>{data.metadata.title}</title>
+    <meta property="og:description" content={data.metadata.description} />
+    <meta property="og:image" content={data.metadata.hero.image} />
+</svelte:head>
 <style>
     .post-container {
         display: flex;
@@ -36,7 +41,8 @@
         height: auto;
         width: auto;
 
-        max-width: 80vh;
+        max-width: 100%;
+        max-height: 80vh;
     }
     hr {
         width: 100%;

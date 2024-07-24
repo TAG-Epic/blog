@@ -3,7 +3,7 @@ body {
     background: #f8f9fb;
     font-family: "Atkinson";
 }
-p {
+p,label,input,pre {
     line-height: 1.7;
     font-size: 20px;
 }

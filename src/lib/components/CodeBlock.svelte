@@ -11,8 +11,19 @@
         theme: "min-dark"
     });
 </script>
-{#if renderedCodeBlock !== undefined}
-    {#await renderedCodeBlock then codeHtml}
-        <svelte:element this={codeHtml} />
-    {/await}
-{/if}
+<style>
+    .code-block {
+        padding-left: .5rem;
+        padding-right: .5rem;
+        background: #1f1f1f;
+        max-width: 100%;
+        overflow-x: scroll;
+    }
+</style>
+<div class="code-block">
+    {#if renderedCodeBlock !== undefined}
+        {#await renderedCodeBlock then codeHtml}
+            {@html codeHtml}
+        {/await}
+    {/if}
+</div>
