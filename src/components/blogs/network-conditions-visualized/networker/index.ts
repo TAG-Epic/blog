@@ -13,12 +13,12 @@ export type NetworkerPlayer = {
     positionRequestCallback: PositionRequestCallback;
     networking: {
         inbound: {
-            ping: number;
+            latency: number;
             packetloss: number;
             jitter: number;
         };
         outbound: {
-            ping: number;
+            latency: number;
             packetloss: number;
             jitter: number;
         }
@@ -121,7 +121,7 @@ export class Networker {
         }
 
         let jitter = playerData.networking.outbound.jitter * Math.random();
-        let ping = playerData.networking.outbound.ping + jitter;
+        let ping = playerData.networking.outbound.latency + jitter;
 
         let serverReceivedEvent: ServerReceivedPacketEvent = {
             type: NetworkerEventType.SERVER_RECEIVED_PACKET,
@@ -140,7 +140,7 @@ export class Networker {
             let dropped = Math.random() < playerData.networking.inbound.packetloss;
 
             let jitter = playerData.networking.inbound.jitter * Math.random();
-            let ping = playerData.networking.inbound.ping + jitter;
+            let ping = playerData.networking.inbound.latency + jitter;
 
             if (dropped) {
                 ping = 0;

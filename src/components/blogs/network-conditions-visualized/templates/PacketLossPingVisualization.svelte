@@ -9,7 +9,7 @@
     import { FiddleAnalyticTracker } from "../fiddle-analytic";
 
     let tickRate = writable<number>(10);
-    let pingMs = writable<number>(100);
+    let E2ELatencyMs = writable<number>(100);
     let packetLossPercent = writable<number>(5);
     
     let playersConfig = new Map<string, NetworkerPlayer>();
@@ -36,12 +36,12 @@
         networking: {
             inbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             },
             outbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             }
         }
@@ -53,12 +53,12 @@
         networking: {
             inbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             },
             outbound: {
                 packetloss: $packetLossPercent / 100,
-                ping: $pingMs,
+                latency: $E2ELatencyMs,
                 jitter: 0
             }
         }
@@ -98,22 +98,22 @@
         networker.changeOptions(config);
     }
     function changePing(newPingMs: number) {
-        config.components.players.get("user-2")!.networking.outbound.ping = newPingMs;
+        config.components.players.get("user-2")!.networking.outbound.latency = newPingMs;
     }
     function changePacketLoss(newPacketLossPercent: number) {
         config.components.players.get("user-2")!.networking.outbound.packetloss = newPacketLossPercent / 100;
     }
     
     tickRate.subscribe(changeTickRate);
-    pingMs.subscribe(changePing);
+    E2ELatencyMs.subscribe(changePing);
     packetLossPercent.subscribe(changePacketLoss);
 
     // Analytics
     let tracker = new FiddleAnalyticTracker({
-        visualization: "packetloss-ping"
+        visualization: "packetloss-latency"
     });
     tickRate.subscribe(tracker.createControlHook({input: "tick-rate"}));
-    pingMs.subscribe(tracker.createControlHook({input: "ping"}));
+    E2ELatencyMs.subscribe(tracker.createControlHook({input: "e2e-latency"}));
     packetLossPercent.subscribe(tracker.createControlHook({input: "packet-loss"}));
 </script>
 <style>
@@ -132,9 +132,9 @@
         <label for="tick-rate-input">Tick rate: {$tickRate}</label>
         <input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
     </div>
-    <div class="ping-control control">
-        <label for="ping-input">Ping: {$pingMs}ms</label>
-        <input id="ping-input" type="range" min={0} max={1000} bind:value={$pingMs}>
+    <div class="e2e-latency-control control">
+        <label for="latency-input">E2E Latency: {$E2ELatencyMs}ms</label>
+        <input id="latency-input" type="range" min={0} max={1000} bind:value={$E2ELatencyMs}>
     </div>
     <div class="packetloss-control control">
         <label for="packetloss-input">Packetloss: {$packetLossPercent}%</label>

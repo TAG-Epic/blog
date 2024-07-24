@@ -32,12 +32,12 @@
         networking: {
             inbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             },
             outbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             }
         }
@@ -49,12 +49,12 @@
         networking: {
             inbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             },
             outbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             }
         }
@@ -96,7 +96,6 @@
     }
     tickRate.subscribe(changeTickRate);
     
-    // Analytics
     // Analytics
     let tracker = new FiddleAnalyticTracker({
         visualization: "no-smoothing-stuttering-comparison"

@@ -24,12 +24,12 @@
         networking: {
             inbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             },
             outbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             }
         }

@@ -11,7 +11,7 @@
     import { ShapeType } from "../shapes";
 
     let tickRate = writable<number>(10);
-    let pingMs = writable<number>(100);
+    let E2ELatencyMs = writable<number>(100);
     let packetLossPercent = writable<number>(5);
     let jitterMs = writable<number>(20);
     let extrapolate = writable<boolean>(false);
@@ -40,12 +40,12 @@
         networking: {
             inbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             },
             outbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             }
         }
@@ -57,12 +57,12 @@
         networking: {
             inbound: {
                 packetloss: 0,
-                ping: 0,
+                latency: 0,
                 jitter: 0
             },
             outbound: {
                 packetloss: $packetLossPercent / 100,
-                ping: $pingMs,
+                latency: $E2ELatencyMs,
                 jitter: $jitterMs
             }
         }
@@ -118,7 +118,7 @@
         networker.changeOptions(config);
     }
     function changePing(newPingMs: number): void {
-        config.components.players.get("user-2")!.networking.outbound.ping = newPingMs;
+        config.components.players.get("user-2")!.networking.outbound.latency = newPingMs;
     }
     function changePacketLoss(newPacketLossPercent: number): void {
         config.components.players.get("user-2")!.networking.outbound.packetloss = newPacketLossPercent / 100;
@@ -147,7 +147,7 @@
     }
     
     tickRate.subscribe(changeTickRate);
-    pingMs.subscribe(changePing);
+    E2ELatencyMs.subscribe(changePing);
     packetLossPercent.subscribe(changePacketLoss);
     jitterMs.subscribe(changeJitter);
     extrapolate.subscribe(changeExtrapolate);
@@ -162,7 +162,7 @@
         visualization: "jiggle-peak"
     });
     tickRate.subscribe(tracker.createControlHook({input: "tick-rate"}));
-    pingMs.subscribe(tracker.createControlHook({input: "ping"}));
+    E2ELatencyMs.subscribe(tracker.createControlHook({input: "e2e-latency"}));
     packetLossPercent.subscribe(tracker.createControlHook({input: "packet-loss"}));
     jitterMs.subscribe(tracker.createControlHook({input: "jitter"}));
     extrapolate.subscribe(tracker.createControlHook({input: "extrapolate"}));
@@ -187,9 +187,9 @@
         <label for="tick-rate-input">Tick rate: {$tickRate}</label>
         <input id="tick-rate-input" type="range" min={1} max={100} bind:value={$tickRate}>
     </div>
-    <div class="ping-control control">
-        <label for="ping-input">Ping: {$pingMs}ms</label>
-        <input id="ping-input" type="range" min={0} max={1000} bind:value={$pingMs}>
+    <div class="e2e-latency-control control">
+        <label for="latency-input">E2E Latency: {$E2ELatencyMs}ms</label>
+        <input id="latency-input" type="range" min={0} max={1000} bind:value={$E2ELatencyMs}>
     </div>
     <div class="packetloss-control control">
         <label for="packetloss-input">Packetloss: {$packetLossPercent}%</label>
