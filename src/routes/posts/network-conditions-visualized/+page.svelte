@@ -102,7 +102,7 @@ return {
     This works really well on low-tickrate games, but isn't as effective on high tickrate games.
     
 </p>
-<JigglePeakingVisualization client:visible client:only="svelte" />
+<JigglePeakingVisualization />
 <p>
     The player is invisible here from the <PlayerMarker color="blue" /> remote perspective as the player is ticked when the player is behind cover and not when they are outside cover.
     So the reason "jigglepeeking doesn't work in VAIL" is because it has a really high tickrate.
@@ -112,7 +112,7 @@ return {
     Ping swinging is where you swing around a corner where you know the enemy is in view so that you can use your ping to kill them before they can even see you.
     Ping swinging is a pretty useful way to get a trade as in VAIL it trusts both clients when they say they killed the enemy.
 </p>
-<PingSwingVisualization client:visible client:only="svelte" />
+<PingSwingVisualization />
 <h2>Footnotes</h2>
 <ol class="footnotes">
     <li id="footnote-pls-fix-netcode"><a href="https://discord.com/channels/710682414225162301/1223413597435072653">cough cough</a></li>
