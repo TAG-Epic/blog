@@ -1,0 +1,7 @@
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 10008:80
