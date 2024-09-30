@@ -5,10 +5,17 @@
 <style>
     .post {
         text-decoration: none;
+		display: flex;
+		flex-direction: column;
+		gap: .5rem;
     }
-    .post:hover > .title {
+    .post:hover > .post-details > .title {
         color: #333;
     }
+	.post-details {
+		display: flex;
+		flex-direction: column;
+	}
     .title {
         margin: 0;
         color: rgb(var(--black));
@@ -22,19 +29,24 @@
     }
     .hero {
         border-radius: 5px;
+		width: calc(min(100%, 720px));
+		object-fit: cover;
+		aspect-ratio: 6/4;
     }
 </style>
 <a class="post" href={`/posts/${post.slug}/`}>
-    <img class="hero" width={720} src={post.hero.image} alt="" />
-    <h4 class="title">{post.title}</h4>
-    <p class="date">
-        {post.pubDate}
-    </p>
-    <div class="tags">
-        {#each post.tags as tag}
-            <a class="tag" href={`/tags/${tag}`}>
-                #{tag}
-            </a>
-        {/each}
-    </div>
+    <img class="hero" src={post.hero.image} alt="" />
+	<div class="post-details">
+		<span class="title">{post.title}</span>
+		<span class="date">
+			{post.pubDate}
+		</span>
+		<div class="tags">
+			{#each post.tags as tag}
+				<a class="tag" href={`/tags/${tag}`}>
+					#{tag}
+				</a>
+			{/each}
+		</div>
+	</div>
 </a>
