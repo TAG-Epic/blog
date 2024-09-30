@@ -5,4 +5,4 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm i
 COPY . ./
 RUN pnpm run build
-CMD ["node", "build", "--port", "80"]
+CMD ["node", "build"]
