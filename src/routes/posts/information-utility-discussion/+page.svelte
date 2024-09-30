@@ -91,7 +91,7 @@
 	<h3>Negatives</h3>
 	<ul>
 		<li>This won't have any use for non-artifact, and will have little impact outside higher skill gameplay as information is not that important there</li>
-		<li>This makes fakes harder. They are still possible by hiding inside things like yard building on miru, however this is very map spesific</li>
+		<li>This makes fakes harder. They are still possible by hiding inside things like yard building on miru, however this is very map specific</li>
 		<li>This will make the thrower probably quite dizzy.</li>
 	</ul>
 </section>
@@ -101,19 +101,30 @@
 		This is inspired by Fortnite's guided missiles.
 		Imagine having a missile as a utility that you can fire and gain control over when you fire it. It has a constant speed forward, but you can steer it (however with a big steering radius to balance it, later on this)
 
-		After firing it has a ~5 second cooldown until it explodes unless you hit something with it or the enemy shoots it down, in those cases it would explode immediately.
+		After firing it has a ~5 second countdown until it explodes unless you hit something with it or the enemy shoots it down, in those cases it would explode immediately.
 		You would not be able to exit the missile until it has exploded.
 	</p>
 	<h3>Balancing</h3>
+	<h4>Turn radius</h4>
+	<p>
+		The primary way I'd balance this would be making the turn radius quite high. This combined with the explode countdown makes it so that you have to stand relatively exposed as any "hidden" spots require tight turns, which eats quickly at your explosion countdown timer.
+		This also makes it a lot harder to hit enemies that are trying to dodge it, which is a nice positive.
+	</p>
+	<h4>Damage</h4>
+	<p>
+		The primary goal is not for this to be a replacement for frags/impacts, so damage is something to be careful about. The reason damage is here is to make it more viable in public matches where strategy and information is not that important. However damage is still important as you want the to balance the impact of actually hitting your missile and just deciding to ignore all enemies and try to get as much info as possible with your missile.
+	</p>
 	<p>TODO: Write me!</p>
 	<h3>Positives</h3>
 	<ul>
 		<li>This acts somewhat like a normal utility, where it's some temporary projectile you control</li>
-
+		<li>Can be used on hardpoint, however this is more the aimable missile side</li>
 	</ul>
 	<h3>Negatives</h3>
 	<ul>
 		<li>This gives you quite a lot of visibility over site, and requires quite a lot of coordination to limit the amount of info gathered</li>
+		<li>This would be very hard to fit in the story/game aesthetic</li>
+		<li>This will make the thrower probably quite dizzy.</li>
 	</ul>
 </section>
 
