@@ -1,7 +1,13 @@
 <script lang="ts">
 	import InitialThreadMessages from "./assets/initial-thread-start.png";
 	import RainbowSixSiegeDrone from "./assets/rainbow-six-siege-drone.webp";
+	import StationaryDrone from "./assets/stationary-drone.jpeg";
 </script>
+<style>
+	img {
+		max-width: 100%;
+	}
+</style>
 <section id="section-intro">
 	<h1>Lets start with the backstory</h1>
 	<p>
@@ -17,12 +23,97 @@
 	</p>
 </section>
 
-<h1>Universally hated ideas</h1>
-<h2>The rainbow six seige drone</h2>
-<img src={RainbowSixSiegeDrone} alt="">
-<p>
-	This allows you to spawn a drone you control fully to spy on your enemy while you attack the defenders.
-	The defenders can counter the drones with electrical utility or shooting the drones.
+<h1 id="title-universally-hated-ideas">Universally hated ideas</h1>
+<section id="section-rainbow-six-siege-drone">
+	<h2>The rainbow six seige drone</h2>
+	<img src={RainbowSixSiegeDrone} alt="">
+	<p>
+		This allows you to spawn a drone you control fully to spy on your enemy while you attack the defenders.
+		The defenders can counter the drones with electrical utility or shooting the drones.
 
-	This is a very cool concept for Rainbow Six Siege, but doesn't fit the pacing nor maps in VAIL.
+		This is a very cool concept for Rainbow Six Siege, but doesn't fit the pacing nor maps in VAIL.
+		This also adds persistent utility, which doesn't really fit with the convention of utility being temporary.
+	</p>
+	<h3>Positives</h3>
+	<ul>
+		<li>This is very realistic and would fit in lore wise with minor changes</li>
+	</ul>
+	<h3>Negatives</h3>
+	<ul>
+		<li>This doesn't fit the pacing VAIL currently has and players love</li>
+		<li>VAIL maps aren't built for small nade/drone holes, so drones would require a lot of map changes to have drones that are worth putting in positions</li>
+		<li>This would make information very cheap</li>
+		<li>Countering it depends on looking for nooks and crannies for drones, which is pretty boring</li>
+	</ul>
+</section>
+<section id="section-stationary-drones">
+	<h2>Stationary drones</h2>
+	<img src={StationaryDrone} alt="a drone standing still in the sky" />
+	<p>
+		The idea for this would be that you could somehow deploy a drone and move it around, and let it stay there and go back to control it later.
+
+		This is somewhat similar to Echo's drones from Rainbow Six Siege again, however it wouldn't have any disguising nor be limited to either floor or ceiling.
+	</p>
+	<h3>Positives</h3>
+	<ul>
+		<li>This is very realistic and fits in lore-wise</li>
+	</ul>
+	<h3>Negatives</h3>
+	<ul>
+		<li>This would fit in much more defender sided scenarios than attacker sided.</li>
+		<li>This doesn't fit the pacing VAIL currently has and players love</li>
+		<li>Countering it would require looking up quite a lot looking for the drones, which is tiring for your neck and is hard for stock players to do</li>
+	</ul>
+</section>
+
+<h1 id="title-ideas-needing-more-discussion">Ideas with more discussion needed</h1>
+<p>
+	These ideas where still being discussed at the closure of the <a href="https://discord.com/channels/710682414225162301/1289843326832349234/1290397034393636896">last closure of the last thread</a>, however we never got done fully discussing them so negatives/positives haven't been figured out yet.
+	Remember that this is supposed to be a "living document" updated with points from the discussions about these, so constructive discussions about these are very welcome and appreciated &lt;3
 </p>
+<section id="section-throwable-camera">
+	<h2>Throwable camera</h2>
+	<p>
+		A camera you can throw over walls and similar where you instantly switch to its perspective as you throw it, but you go back to your character if the camera is either shot or it lands.
+
+		This can be explained in a few reasons in the lore
+	</p>
+	<ul>
+		<li>Countries are consistently spying on eachother in the real world, and the equipment needs to be swapped out relatively often as they are discovered.</li>
+		<li>This can be a "<a href="https://www.merriam-webster.com/wordplay/what-does-macgyver-mean-slang-definition">MacGyver</a>" solution for information, for example made using a GoPro and some VR glasses</li>
+	</ul>
+	<h3>Positives</h3>
+	<ul>
+		<li>This acts more like a normal utility, where you throw it and let it do its thing</li>
+		<li>This is balanced by the thrower being locked into the utility until it's destroyed. This is useful for 1v1's as the enemy can counter a bad camera throw by rushing your character and killing you while you are defenseless</li>
+		<li>This is still very skill based as you need to hit the camera in a good location and be able to see all the enemies and call them out in the short time before the camera is destroyed</li>
+	</ul>
+	<h3>Negatives</h3>
+	<ul>
+		<li>This won't have any use for non-artifact, and will have little impact outside higher skill gameplay as information is not that important there</li>
+		<li>This makes fakes harder. They are still possible by hiding inside things like yard building on miru, however this is very map spesific</li>
+		<li>This will make the thrower probably quite dizzy.</li>
+	</ul>
+</section>
+<section id="section-aimable-rocket">
+	<h2>Aimable missile</h2>
+	<p>
+		This is inspired by Fortnite's guided missiles.
+		Imagine having a missile as a utility that you can fire and gain control over when you fire it. It has a constant speed forward, but you can steer it (however with a big steering radius to balance it, later on this)
+
+		After firing it has a ~5 second cooldown until it explodes unless you hit something with it or the enemy shoots it down, in those cases it would explode immediately.
+		You would not be able to exit the missile until it has exploded.
+	</p>
+	<h3>Balancing</h3>
+	<p>TODO: Write me!</p>
+	<h3>Positives</h3>
+	<ul>
+		<li>This acts somewhat like a normal utility, where it's some temporary projectile you control</li>
+
+	</ul>
+	<h3>Negatives</h3>
+	<ul>
+		<li>This gives you quite a lot of visibility over site, and requires quite a lot of coordination to limit the amount of info gathered</li>
+	</ul>
+</section>
+
