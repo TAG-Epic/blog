@@ -127,7 +127,6 @@
 	<p>
 		The primary goal is not for this to be a replacement for frags/impacts, so damage is something to be careful about. The reason damage is here is to make it more viable in public matches where strategy and information is not that important. However damage is still important as you want the to balance the impact of actually hitting your missile and just deciding to ignore all enemies and try to get as much info as possible with your missile.
 	</p>
-	<p>TODO: Write me!</p>
 	<h3>Positives</h3>
 	<ul>
 		<li>This acts somewhat like a normal utility, where it's some temporary projectile you control</li>
