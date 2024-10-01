@@ -2,6 +2,8 @@
 	import InitialThreadMessages from "./assets/initial-thread-start.png";
 	import RainbowSixSiegeDrone from "./assets/rainbow-six-siege-drone.webp";
 	import StationaryDrone from "./assets/stationary-drone.jpeg";
+	import CameraThrow from "./assets/camera-throw.jpg";
+	import Rocket from "./assets/rocket.jpg";
 </script>
 <style>
 	img {
@@ -73,20 +75,30 @@
 </p>
 <section id="section-throwable-camera">
 	<h2>Throwable camera</h2>
+	<img src={CameraThrow} alt="" />
 	<p>
 		A camera you can throw over walls and similar where you instantly switch to its perspective as you throw it, but you go back to your character if the camera is either shot or it lands.
 
-		This can be explained in a few reasons in the lore
+		The user's camera wouldn't be locked as you could argue its a 360* camera.
 	</p>
 	<ul>
 		<li>Countries are consistently spying on eachother in the real world, and the equipment needs to be swapped out relatively often as they are discovered.</li>
 		<li>This can be a "<a href="https://www.merriam-webster.com/wordplay/what-does-macgyver-mean-slang-definition">MacGyver</a>" solution for information, for example made using a GoPro and some VR glasses</li>
 	</ul>
+	<h3>Balancing</h3>
+	<h4>Max duration/distance</h4>
+	<p>
+		This is something that is <i>possible</i> to use to balance it, however you need to be careful as this might buff it instead by making it so you can throw it as high up as you can in 5s and see the <i>entire</i> map.
+		Instead I propose that once you throw it you are locked into watching it until it is destroyed.
+
+		You could coordinate with your team to throw it as high as you can and someone else shoots it, but that requires quite a lot of precision and coordination, so I think this would be balanced?
+	</p>
 	<h3>Positives</h3>
 	<ul>
 		<li>This acts more like a normal utility, where you throw it and let it do its thing</li>
 		<li>This is balanced by the thrower being locked into the utility until it's destroyed. This is useful for 1v1's as the enemy can counter a bad camera throw by rushing your character and killing you while you are defenseless</li>
 		<li>This is still very skill based as you need to hit the camera in a good location and be able to see all the enemies and call them out in the short time before the camera is destroyed</li>
+		<li>This fits very well into the lore</li>
 	</ul>
 	<h3>Negatives</h3>
 	<ul>
@@ -97,6 +109,7 @@
 </section>
 <section id="section-aimable-rocket">
 	<h2>Aimable missile</h2>
+	<img src={Rocket} alt="" />
 	<p>
 		This is inspired by Fortnite's guided missiles.
 		Imagine having a missile as a utility that you can fire and gain control over when you fire it. It has a constant speed forward, but you can steer it (however with a big steering radius to balance it, later on this)
